@@ -285,6 +285,7 @@ class PaginatorInterface(ui.View):  # pylint: disable=too-many-instance-attribut
             return
 
         self._display_page = 0
+        self.update_view()
         await interaction.response.edit_message(**self.send_kwargs)
 
     @ui.button(label="\N{BLACK LEFT-POINTING TRIANGLE}", style=discord.ButtonStyle.secondary)
@@ -294,6 +295,7 @@ class PaginatorInterface(ui.View):  # pylint: disable=too-many-instance-attribut
             return
 
         self._display_page -= 1
+        self.update_view()
         await interaction.response.edit_message(**self.send_kwargs)
 
     @ui.button(label="1", style=discord.ButtonStyle.primary)
@@ -302,6 +304,7 @@ class PaginatorInterface(ui.View):  # pylint: disable=too-many-instance-attribut
         if not self.owner_interaction_check(interaction.user):
             return
 
+        self.update_view()
         await interaction.response.edit_message(**self.send_kwargs)
 
     @ui.button(label="\N{BLACK RIGHT-POINTING TRIANGLE}", style=discord.ButtonStyle.secondary)
@@ -311,6 +314,7 @@ class PaginatorInterface(ui.View):  # pylint: disable=too-many-instance-attribut
             return
 
         self._display_page += 1
+        self.update_view()
         await interaction.response.edit_message(**self.send_kwargs)
 
     @ui.button(label="\N{BLACK RIGHT-POINTING DOUBLE TRIANGLE WITH VERTICAL BAR} \u200b 1", style=discord.ButtonStyle.secondary)
@@ -320,6 +324,7 @@ class PaginatorInterface(ui.View):  # pylint: disable=too-many-instance-attribut
             return
 
         self._display_page = self.page_count - 1
+        self.update_view()
         await interaction.response.edit_message(**self.send_kwargs)
 
     @ui.button(label="\N{BLACK SQUARE FOR STOP} \u200b Close paginator", style=discord.ButtonStyle.danger)
