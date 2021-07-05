@@ -11,6 +11,7 @@ The jishaku shell commands.
 
 """
 
+import aoi
 from discord.ext import commands
 
 from jishaku.codeblocks import Codeblock, codeblock_converter
@@ -25,8 +26,8 @@ class ShellFeature(Feature):
     Feature containing the shell-related commands
     """
 
-    @Feature.Command(parent="jsk", name="shell", aliases=["bash", "sh", "powershell", "ps1", "ps", "cmd"])
-    async def jsk_shell(self, ctx: commands.Context, *, argument: codeblock_converter):
+    @Feature.Command(parent="jsk", name="shell", aliases=["bash", "sh", "powershell", "ps1", "ps", "cmd"], brief="Jishaku Cog")
+    async def jsk_shell(self, ctx: aoi.AoiContext, *, argument: codeblock_converter):
         """
         Executes statements in the system shell.
 
@@ -52,16 +53,16 @@ class ShellFeature(Feature):
 
                 await interface.add_line(f"\n[status] Return code {reader.close_code}")
 
-    @Feature.Command(parent="jsk", name="git")
-    async def jsk_git(self, ctx: commands.Context, *, argument: codeblock_converter):
+    @Feature.Command(parent="jsk", name="git", brief="Jishaku Cog")
+    async def jsk_git(self, ctx: aoi.AoiContext, *, argument: codeblock_converter):
         """
         Shortcut for 'jsk sh git'. Invokes the system shell.
         """
 
         return await ctx.invoke(self.jsk_shell, argument=Codeblock(argument.language, "git " + argument.content))
 
-    @Feature.Command(parent="jsk", name="pip")
-    async def jsk_pip(self, ctx: commands.Context, *, argument: codeblock_converter):
+    @Feature.Command(parent="jsk", name="pip", brief="Jishaku Cog")
+    async def jsk_pip(self, ctx: aoi.AoiContext, *, argument: codeblock_converter):
         """
         Shortcut for 'jsk sh pip'. Invokes the system shell.
         """

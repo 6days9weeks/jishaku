@@ -17,6 +17,7 @@ import pathlib
 import re
 
 import aiohttp
+import aoi
 import discord
 from discord.ext import commands
 
@@ -34,8 +35,8 @@ class FilesystemFeature(Feature):
 
     __cat_line_regex = re.compile(r"(?:\.\/+)?(.+?)(?:#L?(\d+)(?:\-L?(\d+))?)?$")
 
-    @Feature.Command(parent="jsk", name="cat")
-    async def jsk_cat(self, ctx: commands.Context, argument: str):  # pylint: disable=too-many-locals
+    @Feature.Command(parent="jsk", name="cat", brief="Jishaku Cog")
+    async def jsk_cat(self, ctx: aoi.AoiContext, argument: str):  # pylint: disable=too-many-locals
         """
         Read out a file, using syntax highlighting if detected.
 
@@ -93,8 +94,8 @@ class FilesystemFeature(Feature):
         except ValueError as exc:
             return await ctx.send(f"`{path}`: Couldn't read this file, {exc}")
 
-    @Feature.Command(parent="jsk", name="curl")
-    async def jsk_curl(self, ctx: commands.Context, url: str):
+    @Feature.Command(parent="jsk", name="curl", brief="Jishaku Cog")
+    async def jsk_curl(self, ctx: aoi.AoiContext, url: str):
         """
         Download and display a text file from the internet.
 

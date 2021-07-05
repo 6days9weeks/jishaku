@@ -17,6 +17,7 @@ import io
 import pathlib
 import time
 
+import aoi
 import discord
 from discord.ext import commands
 
@@ -32,8 +33,8 @@ class InvocationFeature(Feature):
     Feature containing the command invocation related commands
     """
 
-    @Feature.Command(parent="jsk", name="su")
-    async def jsk_su(self, ctx: commands.Context, target: discord.User, *, command_string: str):
+    @Feature.Command(parent="jsk", name="su", brief="Jishaku Cog")
+    async def jsk_su(self, ctx: aoi.AoiContext, target: discord.User, *, command_string: str):
         """
         Run a command as someone else.
 
@@ -60,8 +61,8 @@ class InvocationFeature(Feature):
 
         return await alt_ctx.command.invoke(alt_ctx)
 
-    @Feature.Command(parent="jsk", name="in")
-    async def jsk_in(self, ctx: commands.Context, channel: discord.TextChannel, *, command_string: str):
+    @Feature.Command(parent="jsk", name="in", brief="Jishaku Cog")
+    async def jsk_in(self, ctx: aoi.AoiContext, channel: discord.TextChannel, *, command_string: str):
         """
         Run a command as if it were run in a different channel.
         """
@@ -73,8 +74,8 @@ class InvocationFeature(Feature):
 
         return await alt_ctx.command.invoke(alt_ctx)
 
-    @Feature.Command(parent="jsk", name="sudo")
-    async def jsk_sudo(self, ctx: commands.Context, *, command_string: str):
+    @Feature.Command(parent="jsk", name="sudo", brief="Jishaku Cog")
+    async def jsk_sudo(self, ctx: aoi.AoiContext, *, command_string: str):
         """
         Run a command bypassing all checks and cooldowns.
 
@@ -88,8 +89,8 @@ class InvocationFeature(Feature):
 
         return await alt_ctx.command.reinvoke(alt_ctx)
 
-    @Feature.Command(parent="jsk", name="repeat")
-    async def jsk_repeat(self, ctx: commands.Context, times: int, *, command_string: str):
+    @Feature.Command(parent="jsk", name="repeat", brief="Jishaku Cog")
+    async def jsk_repeat(self, ctx: aoi.AoiContext, times: int, *, command_string: str):
         """
         Runs a command multiple times in a row.
 
@@ -106,8 +107,8 @@ class InvocationFeature(Feature):
 
                 await alt_ctx.command.reinvoke(alt_ctx)
 
-    @Feature.Command(parent="jsk", name="debug", aliases=["dbg"])
-    async def jsk_debug(self, ctx: commands.Context, *, command_string: str):
+    @Feature.Command(parent="jsk", name="debug", aliases=["dbg"], brief="Jishaku Cog")
+    async def jsk_debug(self, ctx: aoi.AoiContext, *, command_string: str):
         """
         Run a command timing execution and catching exceptions.
         """
@@ -126,8 +127,8 @@ class InvocationFeature(Feature):
         end = time.perf_counter()
         return await ctx.send(f"Command `{alt_ctx.command.qualified_name}` finished in {end - start:.3f}s.")
 
-    @Feature.Command(parent="jsk", name="source", aliases=["src"])
-    async def jsk_source(self, ctx: commands.Context, *, command_name: str):
+    @Feature.Command(parent="jsk", name="source", aliases=["src"], brief="Jishaku Cog")
+    async def jsk_source(self, ctx: aoi.AoiContext, *, command_name: str):
         """
         Displays the source code for a command.
         """

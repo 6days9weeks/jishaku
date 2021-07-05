@@ -13,6 +13,7 @@ The jishaku guild-related commands.
 
 import typing
 
+import aoi
 import discord
 from discord.ext import commands
 
@@ -57,9 +58,9 @@ class GuildFeature(Feature):
         for i in range(0, len(array), chunk_size):
             yield array[i:i + chunk_size]
 
-    @Feature.Command(parent="jsk", name="permtrace")
+    @Feature.Command(parent="jsk", name="permtrace", brief="Jishaku Cog")
     async def jsk_permtrace(
-        self, ctx: commands.Context,
+        self, ctx: aoi.AoiContext,
         channel: typing.Union[discord.TextChannel, discord.VoiceChannel],
         *targets: typing.Union[discord.Member, discord.Role]
     ):  # pylint: disable=too-many-locals, too-many-branches, too-many-statements

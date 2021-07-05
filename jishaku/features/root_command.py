@@ -14,6 +14,7 @@ The jishaku root command.
 import sys
 import typing
 
+import aoi
 import discord
 import humanize
 from discord.ext import commands
@@ -35,8 +36,8 @@ class RootCommand(Feature):
     """
 
     @Feature.Command(name="jishaku", aliases=["jsk"], hidden=JISHAKU_HIDE,
-                     invoke_without_command=True, ignore_extra=False)
-    async def jsk(self, ctx: commands.Context):  # pylint: disable=too-many-branches
+                     invoke_without_command=True, ignore_extra=False, brief="Jishaku Cog")
+    async def jsk(self, ctx: aoi.AoiContext):  # pylint: disable=too-many-branches
         """
         The Jishaku debug and diagnostic commands.
 
@@ -130,8 +131,8 @@ class RootCommand(Feature):
         await ctx.send("\n".join(summary))
 
     # pylint: disable=no-member
-    @Feature.Command(parent="jsk", name="hide")
-    async def jsk_hide(self, ctx: commands.Context):
+    @Feature.Command(parent="jsk", name="hide", brief="Jishaku Cog")
+    async def jsk_hide(self, ctx: aoi.AoiContext):
         """
         Hides Jishaku from the help command.
         """
@@ -142,8 +143,8 @@ class RootCommand(Feature):
         self.jsk.hidden = True
         await ctx.send("Jishaku is now hidden.")
 
-    @Feature.Command(parent="jsk", name="show")
-    async def jsk_show(self, ctx: commands.Context):
+    @Feature.Command(parent="jsk", name="show", brief="Jishaku Cog")
+    async def jsk_show(self, ctx: aoi.AoiContext):
         """
         Shows Jishaku in the help command.
         """
@@ -155,8 +156,8 @@ class RootCommand(Feature):
         await ctx.send("Jishaku is now visible.")
     # pylint: enable=no-member
 
-    @Feature.Command(parent="jsk", name="tasks")
-    async def jsk_tasks(self, ctx: commands.Context):
+    @Feature.Command(parent="jsk", name="tasks", brief="Jishaku Cog")
+    async def jsk_tasks(self, ctx: aoi.AoiContext):
         """
         Shows the currently running jishaku tasks.
         """
@@ -173,8 +174,8 @@ class RootCommand(Feature):
         interface = PaginatorInterface(ctx.bot, paginator, owner=ctx.author)
         return await interface.send_to(ctx)
 
-    @Feature.Command(parent="jsk", name="cancel")
-    async def jsk_cancel(self, ctx: commands.Context, *, index: typing.Union[int, str]):
+    @Feature.Command(parent="jsk", name="cancel", brief="Jishaku Cog")
+    async def jsk_cancel(self, ctx: aoi.AoiContext, *, index: typing.Union[int, str]):
         """
         Cancels a task with the given index.
 

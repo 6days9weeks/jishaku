@@ -17,6 +17,7 @@ import contextlib
 import datetime
 import typing
 
+import aoi
 from discord.ext import commands
 
 __all__ = (
@@ -57,7 +58,7 @@ class Feature(commands.Cog):
     load_time = datetime.datetime.now()
 
     def __init__(self, *args, **kwargs):  # pylint: disable=too-many-branches
-        self.bot: commands.Bot = kwargs.pop('bot')
+        self.bot: aoi.AoiBot = kwargs.pop('bot')
         self.start_time: datetime.datetime = datetime.datetime.now()
         self.tasks = collections.deque()
         self.task_count: int = 0
@@ -125,7 +126,7 @@ class Feature(commands.Cog):
         # Don't really think this does much, but init Cog anyway.
         super().__init__(*args, **kwargs)
 
-    async def cog_check(self, ctx: commands.Context):  # pylint: disable=invalid-overridden-method
+    async def cog_check(self, ctx: aoi.AoiContext):  # pylint: disable=invalid-overridden-method
         """
         Local check, makes all commands in resulting cogs owner-only
         """
@@ -135,7 +136,7 @@ class Feature(commands.Cog):
         return True
 
     @contextlib.contextmanager
-    def submit(self, ctx: commands.Context):
+    def submit(self, ctx: aoi.AoiContext):
         """
         A context-manager that submits the current task to jishaku's task list
         and removes it afterwards.
