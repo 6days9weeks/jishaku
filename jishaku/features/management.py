@@ -15,12 +15,14 @@ import itertools
 import math
 import time
 import traceback
+from urllib.parse import urlencode
 
 import aoi
+import discord
 from discord.ext import commands
 
 from jishaku.features.baseclass import Feature
-from jishaku.flags import JISHAKU_USE_BRAILLE_J
+from jishaku.flags import Flags
 from jishaku.modules import ExtensionConverter
 from jishaku.paginators import WrappedPaginator
 
@@ -30,7 +32,7 @@ class ManagementFeature(Feature):
     Feature containing the extension and bot control commands
     """
 
-    @Feature.Command(parent="jsk", name="load", aliases=["reload"], brief="Jishaku Cog")
+    @Feature.Command(parent="jsk", name="load", aliases=["reload"], brief="(Re)load a cog")
     async def jsk_load(self, ctx: aoi.AoiContext, *extensions: ExtensionConverter):
         """
         Loads or reloads the given extension names.
@@ -66,7 +68,7 @@ class ManagementFeature(Feature):
         for page in paginator.pages:
             await ctx.send(page)
 
-    @Feature.Command(parent="jsk", name="unload", brief="Jishaku Cog")
+    @Feature.Command(parent="jsk", name="unload", brief="Unload a cog.")
     async def jsk_unload(self, ctx: aoi.AoiContext, *extensions: ExtensionConverter):
         """
         Unloads the given extension names.
@@ -99,12 +101,41 @@ class ManagementFeature(Feature):
         Logs this bot out.
         """
 
-        ellipse_character = "\N{BRAILLE PATTERN DOTS-356}" if JISHAKU_USE_BRAILLE_J else "\N{HORIZONTAL ELLIPSIS}"
+        ellipse_character = "\N{BRAILLE PATTERN DOTS-356}" if Flags.USE_BRAILLE_J else "\N{HORIZONTAL ELLIPSIS}"
 
         await ctx.send(f"Logging out now{ellipse_character}")
         await ctx.bot.close()
 
-    @Feature.Command(parent="jsk", name="rtt", aliases=["ping"], brief="Jishaku Cog")
+    @Feature.Command(parent="jsk", name="invite", brief="Invite the bot.")
+    async def jsk_invite(self, ctx: aoi.AoiContext, *perms: str):
+        """
+        Retrieve the invite URL for this bot.
+
+        If the names of permissions are provided, they are requested as part of the invite.
+        """
+
+        scopes = ('bot', 'applications.commands')
+        permissions = discord.Permissions()
+
+        for perm in perms:
+            if perm not in dict(permissions):
+                raise commands.BadArgument(f"Invalid permission: {perm}")
+
+            setattr(permissions, perm, True)
+
+        application_info = await self.bot.application_info()
+
+        query = {
+            "client_id": application_info.id,
+            "scope": "+".join(scopes),
+            "permissions": permissions.value
+        }
+
+        return await ctx.send(
+            f"Link to invite this bot:\n<https://discordapp.com/oauth2/authorize?{urlencode(query, safe='+')}>"
+        )
+
+    @Feature.Command(parent="jsk", name="rtt", aliases=["ping"], brief="A ping command.")
     async def jsk_rtt(self, ctx: aoi.AoiContext):
         """
         Calculates Round-Trip Time to the API.
