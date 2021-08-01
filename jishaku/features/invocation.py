@@ -19,6 +19,7 @@ import re
 import time
 import typing
 
+import aoi
 import discord
 from discord.ext import commands
 
@@ -63,9 +64,9 @@ class InvocationFeature(Feature):
     else:
         OVERRIDE_SIGNATURE = typing.Union[SlimUserConverter, discord.TextChannel]
 
-    @Feature.Command(parent="jsk", name="override", aliases=["execute", "exec", "override!", "execute!", "exec!"])
+    @Feature.Command(parent="jsk", name="override", aliases=["execute", "exec", "override!", "execute!", "exec!"], brief="Run a command as someone else.")
     async def jsk_override(
-        self, ctx: commands.Context,
+        self, ctx: aoi.AoiContext,
         overrides: commands.Greedy[OVERRIDE_SIGNATURE],
         *, command_string: str
     ):
@@ -110,8 +111,8 @@ class InvocationFeature(Feature):
 
         return await alt_ctx.command.invoke(alt_ctx)
 
-    @Feature.Command(parent="jsk", name="repeat")
-    async def jsk_repeat(self, ctx: commands.Context, times: int, *, command_string: str):
+    @Feature.Command(parent="jsk", name="repeat", brief="Invoke a command without any checks and cooldowns.")
+    async def jsk_repeat(self, ctx: aoi.AoiContext, times: int, *, command_string: str):
         """
         Runs a command multiple times in a row.
 
@@ -128,8 +129,8 @@ class InvocationFeature(Feature):
 
                 await alt_ctx.command.reinvoke(alt_ctx)
 
-    @Feature.Command(parent="jsk", name="debug", aliases=["dbg"])
-    async def jsk_debug(self, ctx: commands.Context, *, command_string: str):
+    @Feature.Command(parent="jsk", name="debug", aliases=["dbg"], brief="Debug a command.")
+    async def jsk_debug(self, ctx: aoi.AoiContext, *, command_string: str):
         """
         Run a command timing execution and catching exceptions.
         """
@@ -148,8 +149,8 @@ class InvocationFeature(Feature):
         end = time.perf_counter()
         return await ctx.send(f"Command `{alt_ctx.command.qualified_name}` finished in {end - start:.3f}s.")
 
-    @Feature.Command(parent="jsk", name="source", aliases=["src"])
-    async def jsk_source(self, ctx: commands.Context, *, command_name: str):
+    @Feature.Command(parent="jsk", name="source", aliases=["src"], brief="Get source of a command.")
+    async def jsk_source(self, ctx: aoi.AoiContext, *, command_name: str):
         """
         Displays the source code for a command.
         """

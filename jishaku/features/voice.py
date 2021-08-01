@@ -13,6 +13,7 @@ The jishaku core voice-related commands.
 
 import typing
 
+import aoi
 import discord
 import discord.opus
 import discord.voice_client
@@ -27,7 +28,7 @@ class VoiceFeature(Feature):
     """
 
     @staticmethod
-    async def voice_check(ctx: commands.Context):
+    async def voice_check(ctx: aoi.AoiContext):
         """
         Check for whether VC is available in this bot.
         """
@@ -45,7 +46,7 @@ class VoiceFeature(Feature):
                 return await ctx.send("Voice cannot be used because libopus is not loaded.")
 
     @staticmethod
-    async def connected_check(ctx: commands.Context):
+    async def connected_check(ctx: aoi.AoiContext):
         """
         Check whether we are connected to VC in this guild.
         """
@@ -56,7 +57,7 @@ class VoiceFeature(Feature):
             return await ctx.send("Not connected to a voice channel in this guild.")
 
     @staticmethod
-    async def playing_check(ctx: commands.Context):
+    async def playing_check(ctx: aoi.AoiContext):
         """
         Checks whether we are playing audio in VC in this guild.
 
@@ -71,8 +72,8 @@ class VoiceFeature(Feature):
             return await ctx.send("The voice client in this guild is not playing anything.")
 
     @Feature.Command(parent="jsk", name="voice", aliases=["vc"],
-                     invoke_without_command=True, ignore_extra=False)
-    async def jsk_voice(self, ctx: commands.Context):
+                     invoke_without_command=True, ignore_extra=False, brief="Jishaku Cog")
+    async def jsk_voice(self, ctx: aoi.AoiContext):
         """
         Voice-related commands.
 
@@ -91,8 +92,8 @@ class VoiceFeature(Feature):
         await ctx.send(f"Connected to {voice.channel.name}, "
                        f"{'paused' if voice.is_paused() else 'playing' if voice.is_playing() else 'idle'}.")
 
-    @Feature.Command(parent="jsk_voice", name="join", aliases=["connect"])
-    async def jsk_vc_join(self, ctx: commands.Context, *,
+    @Feature.Command(parent="jsk_voice", name="join", aliases=["connect"], brief="Jishaku Cog")
+    async def jsk_vc_join(self, ctx: aoi.AoiContext, *,
                           destination: typing.Union[discord.VoiceChannel, discord.Member] = None):
         """
         Joins a voice channel, or moves to it if already connected.
@@ -122,8 +123,8 @@ class VoiceFeature(Feature):
 
         await ctx.send(f"Connected to {destination.name}.")
 
-    @Feature.Command(parent="jsk_voice", name="disconnect", aliases=["dc"])
-    async def jsk_vc_disconnect(self, ctx: commands.Context):
+    @Feature.Command(parent="jsk_voice", name="disconnect", aliases=["dc"], brief="Jishaku Cog")
+    async def jsk_vc_disconnect(self, ctx: aoi.AoiContext):
         """
         Disconnects from the voice channel in this guild, if there is one.
         """
@@ -136,8 +137,8 @@ class VoiceFeature(Feature):
         await voice.disconnect()
         await ctx.send(f"Disconnected from {voice.channel.name}.")
 
-    @Feature.Command(parent="jsk_voice", name="stop")
-    async def jsk_vc_stop(self, ctx: commands.Context):
+    @Feature.Command(parent="jsk_voice", name="stop", brief="Jishaku Cog")
+    async def jsk_vc_stop(self, ctx: aoi.AoiContext):
         """
         Stops running an audio source, if there is one.
         """
@@ -150,8 +151,8 @@ class VoiceFeature(Feature):
         voice.stop()
         await ctx.send(f"Stopped playing audio in {voice.channel.name}.")
 
-    @Feature.Command(parent="jsk_voice", name="pause")
-    async def jsk_vc_pause(self, ctx: commands.Context):
+    @Feature.Command(parent="jsk_voice", name="pause", brief="Jishaku Cog")
+    async def jsk_vc_pause(self, ctx: aoi.AoiContext):
         """
         Pauses a running audio source, if there is one.
         """
@@ -167,8 +168,8 @@ class VoiceFeature(Feature):
         voice.pause()
         await ctx.send(f"Paused audio in {voice.channel.name}.")
 
-    @Feature.Command(parent="jsk_voice", name="resume")
-    async def jsk_vc_resume(self, ctx: commands.Context):
+    @Feature.Command(parent="jsk_voice", name="resume", brief="Jishaku Cog")
+    async def jsk_vc_resume(self, ctx: aoi.AoiContext):
         """
         Resumes a running audio source, if there is one.
         """
@@ -184,8 +185,8 @@ class VoiceFeature(Feature):
         voice.resume()
         await ctx.send(f"Resumed audio in {voice.channel.name}.")
 
-    @Feature.Command(parent="jsk_voice", name="volume")
-    async def jsk_vc_volume(self, ctx: commands.Context, *, percentage: float):
+    @Feature.Command(parent="jsk_voice", name="volume", brief="Jishaku Cog")
+    async def jsk_vc_volume(self, ctx: aoi.AoiContext, *, percentage: float):
         """
         Adjusts the volume of an audio source if it is supported.
         """
@@ -205,8 +206,8 @@ class VoiceFeature(Feature):
 
         await ctx.send(f"Volume set to {volume * 100:.2f}%")
 
-    @Feature.Command(parent="jsk_voice", name="play", aliases=["play_local"])
-    async def jsk_vc_play(self, ctx: commands.Context, *, uri: str):
+    @Feature.Command(parent="jsk_voice", name="play", aliases=["play_local"], brief="Jishaku Cog")
+    async def jsk_vc_play(self, ctx: aoi.AoiContext, *, uri: str):
         """
         Plays audio direct from a URI.
 

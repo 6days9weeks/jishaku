@@ -17,6 +17,7 @@ import time
 import traceback
 from urllib.parse import urlencode
 
+import aoi
 import discord
 from discord.ext import commands
 
@@ -31,8 +32,8 @@ class ManagementFeature(Feature):
     Feature containing the extension and bot control commands
     """
 
-    @Feature.Command(parent="jsk", name="load", aliases=["reload"])
-    async def jsk_load(self, ctx: commands.Context, *extensions: ExtensionConverter):
+    @Feature.Command(parent="jsk", name="load", aliases=["reload"], brief="(Re)load a cog")
+    async def jsk_load(self, ctx: aoi.AoiContext, *extensions: ExtensionConverter):
         """
         Loads or reloads the given extension names.
 
@@ -67,8 +68,8 @@ class ManagementFeature(Feature):
         for page in paginator.pages:
             await ctx.send(page)
 
-    @Feature.Command(parent="jsk", name="unload")
-    async def jsk_unload(self, ctx: commands.Context, *extensions: ExtensionConverter):
+    @Feature.Command(parent="jsk", name="unload", brief="Unload a cog.")
+    async def jsk_unload(self, ctx: aoi.AoiContext, *extensions: ExtensionConverter):
         """
         Unloads the given extension names.
 
@@ -94,8 +95,8 @@ class ManagementFeature(Feature):
         for page in paginator.pages:
             await ctx.send(page)
 
-    @Feature.Command(parent="jsk", name="shutdown", aliases=["logout"])
-    async def jsk_shutdown(self, ctx: commands.Context):
+    @Feature.Command(parent="jsk", name="shutdown", aliases=["logout"], brief="Jishaku Cog")
+    async def jsk_shutdown(self, ctx: aoi.AoiContext):
         """
         Logs this bot out.
         """
@@ -105,8 +106,8 @@ class ManagementFeature(Feature):
         await ctx.send(f"Logging out now{ellipse_character}")
         await ctx.bot.close()
 
-    @Feature.Command(parent="jsk", name="invite")
-    async def jsk_invite(self, ctx: commands.Context, *perms: str):
+    @Feature.Command(parent="jsk", name="invite", brief="Invite the bot.")
+    async def jsk_invite(self, ctx: aoi.AoiContext, *perms: str):
         """
         Retrieve the invite URL for this bot.
 
@@ -134,8 +135,8 @@ class ManagementFeature(Feature):
             f"Link to invite this bot:\n<https://discordapp.com/oauth2/authorize?{urlencode(query, safe='+')}>"
         )
 
-    @Feature.Command(parent="jsk", name="rtt", aliases=["ping"])
-    async def jsk_rtt(self, ctx: commands.Context):
+    @Feature.Command(parent="jsk", name="rtt", aliases=["ping"], brief="A ping command.")
+    async def jsk_rtt(self, ctx: aoi.AoiContext):
         """
         Calculates Round-Trip Time to the API.
         """

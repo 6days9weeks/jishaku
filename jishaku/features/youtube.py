@@ -11,6 +11,7 @@ The jishaku youtube-dl command.
 
 """
 
+import aoi
 import discord
 import youtube_dl
 from discord.ext import commands
@@ -41,8 +42,8 @@ class YouTubeFeature(Feature):
     Feature containing the youtube-dl command
     """
 
-    @Feature.Command(parent="jsk_voice", name="youtube_dl", aliases=["youtubedl", "ytdl", "yt"])
-    async def jsk_vc_youtube_dl(self, ctx: commands.Context, *, url: str):
+    @Feature.Command(parent="jsk_voice", name="youtube_dl", aliases=["youtubedl", "ytdl", "yt"], brief="Jishaku Cog")
+    async def jsk_vc_youtube_dl(self, ctx: aoi.AoiContext, *, url: str):
         """
         Plays audio from youtube_dl-compatible sources.
         """

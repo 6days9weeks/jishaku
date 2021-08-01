@@ -13,6 +13,7 @@ The jishaku Python evaluation/execution commands.
 
 import io
 
+import aoi
 import discord
 from discord.ext import commands
 
@@ -49,8 +50,8 @@ class PythonFeature(Feature):
             return self._scope
         return Scope()
 
-    @Feature.Command(parent="jsk", name="retain")
-    async def jsk_retain(self, ctx: commands.Context, *, toggle: bool = None):
+    @Feature.Command(parent="jsk", name="retain", brief="Jishaku Cog")
+    async def jsk_retain(self, ctx: aoi.AoiContext, *, toggle: bool = None):
         """
         Turn variable retention for REPL on or off.
 
@@ -127,8 +128,8 @@ class PythonFeature(Feature):
         interface = PaginatorInterface(ctx.bot, paginator, owner=ctx.author)
         return await interface.send_to(ctx)
 
-    @Feature.Command(parent="jsk", name="py", aliases=["python"])
-    async def jsk_python(self, ctx: commands.Context, *, argument: codeblock_converter):
+    @Feature.Command(parent="jsk", name="py", aliases=["python"], brief="Jishaku Cog")
+    async def jsk_python(self, ctx: aoi.AoiContext, *, argument: codeblock_converter):
         """
         Direct evaluation of Python code.
         """
@@ -153,8 +154,8 @@ class PythonFeature(Feature):
         finally:
             scope.clear_intersection(arg_dict)
 
-    @Feature.Command(parent="jsk", name="py_inspect", aliases=["pyi", "python_inspect", "pythoninspect"])
-    async def jsk_python_inspect(self, ctx: commands.Context, *, argument: codeblock_converter):  # pylint: disable=too-many-locals
+    @Feature.Command(parent="jsk", name="py_inspect", aliases=["pyi", "python_inspect", "pythoninspect"], brief="Jishaku Cog")
+    async def jsk_python_inspect(self, ctx: aoi.AoiContext, *, argument: codeblock_converter):  # pylint: disable=too-many-locals
         """
         Evaluation of Python code with inspect information.
         """
@@ -198,8 +199,8 @@ class PythonFeature(Feature):
         finally:
             scope.clear_intersection(arg_dict)
 
-    @Feature.Command(parent="jsk", name="dis", aliases=["disassemble"])
-    async def jsk_disassemble(self, ctx: commands.Context, *, argument: codeblock_converter):
+    @Feature.Command(parent="jsk", name="dis", aliases=["disassemble"], brief="Jishaku Cog")
+    async def jsk_disassemble(self, ctx: aoi.AoiContext, *, argument: codeblock_converter):
         """
         Disassemble Python code into bytecode.
         """

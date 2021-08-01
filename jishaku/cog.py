@@ -11,6 +11,7 @@ The Jishaku debugging and diagnostics cog implementation.
 
 """
 
+import aoi
 from discord.ext import commands
 
 from jishaku.features.filesystem import FilesystemFeature
@@ -47,7 +48,7 @@ class Jishaku(*OPTIONAL_FEATURES, *STANDARD_FEATURES):  # pylint: disable=too-fe
     """
 
 
-def setup(bot: commands.Bot):
+def setup(bot: aoi.AoiBot) -> None:
     """
     The setup function defining the jishaku.cog and jishaku extensions.
     """

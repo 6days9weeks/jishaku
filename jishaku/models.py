@@ -13,11 +13,12 @@ Functions for modifying or interfacing with discord.py models.
 
 import copy
 
+import aoi
 import discord
 from discord.ext import commands
 
 
-async def copy_context_with(ctx: commands.Context, *, author=None, channel=None, **kwargs):
+async def copy_context_with(ctx: aoi.AoiContext, *, author=None, channel=None, **kwargs):
     """
     Makes a new :class:`Context` with changed message properties.
     """
