@@ -136,9 +136,7 @@ class RootCommand(Feature):
 
             summary.append(f"{message_cache}, {presence_intent} and {members_intent}.")
         else:
-            guild_subscriptions = f"guild subscriptions are {'enabled' if self.bot._connection.guild_subscriptions else 'disabled'}"
-
-            summary.append(f"{message_cache} and {guild_subscriptions}.")
+            summary.append(f"{message_cache}.")
 
         # pylint: enable=protected-access
 
