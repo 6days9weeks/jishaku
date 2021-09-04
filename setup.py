@@ -117,6 +117,7 @@ setup(
     packages=['jishaku', 'jishaku.features', 'jishaku.repl', 'jishaku.shim'],
     include_package_data=True,
     install_requires=REQUIREMENTS,
+    dependency_links=['https://github.com/Voxel-Fox-Ltd/Novus@master#novus'],
     python_requires='>=3.8.0',
 
     extras_require=EXTRA_REQUIRES,
