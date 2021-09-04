@@ -1,4 +1,4 @@
 braceexpand>=0.1.7
 click>=8.0.1
-git+https://github.com/Voxel-Fox-Ltd/Novus.git
+https://github.com/Voxel-Fox-Ltd/Novus.git
 import_expression>=1.0.0,<2.0.0
