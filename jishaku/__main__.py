@@ -25,9 +25,6 @@ LOG_FORMAT: logging.Formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(n
 LOG_STREAM: logging.Handler = logging.StreamHandler(stream=sys.stdout)
 LOG_STREAM.setFormatter(LOG_FORMAT)
 
-class JskBot(commands.Bot):
-    async def setup_hook(self):
-        await bot.load_extension('jishaku')
 
 @click.command()
 @click.argument('token')
@@ -40,7 +37,8 @@ def entrypoint(token: str):
     logger.setLevel(logging.DEBUG)
     logger.addHandler(LOG_STREAM)
 
-    bot = JskBot(commands.when_mentioned)
+    bot = commands.Bot(commands.when_mentioned)
+    bot.load_extension('jishaku')
     bot.run(token)
 
 

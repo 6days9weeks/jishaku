@@ -52,7 +52,7 @@ One of jishaku's core philosophies is to be dynamic and easy-to-use. Here's the 
 > ```
 > 2. Load the extension in your bot code before it runs:
 > ```python
-> await bot.load_extension('jishaku')
+> bot.load_extension('jishaku')
 > ```
 > That's it!
 

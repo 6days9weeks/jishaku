@@ -32,9 +32,9 @@ class Magnet2(*jishaku.OPTIONAL_FEATURES, *jishaku.STANDARD_FEATURES):  # pylint
         return await ctx.send("The behavior of this command has been overridden directly.")
 
 
-async def setup(bot: commands.Bot):
+def setup(bot: commands.Bot):
     """
     The setup function for the extended cog
     """
 
-    await bot.add_cog(Magnet2(bot=bot))
+    bot.add_cog(Magnet2(bot=bot))

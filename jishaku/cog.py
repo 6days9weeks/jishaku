@@ -47,9 +47,9 @@ class Jishaku(*OPTIONAL_FEATURES, *STANDARD_FEATURES):  # pylint: disable=too-fe
     """
 
 
-async def setup(bot: commands.Bot):
+def setup(bot: commands.Bot):
     """
     The setup function defining the jishaku.cog and jishaku extensions.
     """
 
-    await bot.add_cog(Jishaku(bot=bot))
+    bot.add_cog(Jishaku(bot=bot))

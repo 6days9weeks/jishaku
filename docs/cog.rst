@@ -12,7 +12,7 @@ The conventional way to add the cog is by using the module as an extension:
 
 .. code:: python3
 
-    await bot.load_extension('jishaku')
+    bot.load_extension('jishaku')
 
 You could also create your own extension to load the ``Jishaku`` cog, but this is not recommended:
 
@@ -20,9 +20,9 @@ You could also create your own extension to load the ``Jishaku`` cog, but this i
 
     from jishaku.cog import Jishaku
 
-    async def setup(bot: commands.Bot):
+    def setup(bot: commands.Bot):
         # I don't recommend doing this!
-        await bot.add_cog(Jishaku(bot=bot))
+        bot.add_cog(Jishaku(bot=bot))
 
 If you wish to change or add to the functionality on jishaku for your specific bot, you must use the Features framework to create a new cog.
 
@@ -43,8 +43,8 @@ Here is an example of a simple custom cog using this setup:
     class CustomDebugCog(PythonFeature, RootCommand):
         pass
 
-    async def setup(bot: commands.Bot):
-        await bot.add_cog(CustomDebugCog(bot=bot))
+    def setup(bot: commands.Bot):
+        bot.add_cog(CustomDebugCog(bot=bot))
 
 This example would give you a cog that includes the ``jsk`` command, the core task system, and the Python commands, but nothing else.
 
@@ -62,8 +62,8 @@ Thus, you can make a cog without any optional features like so:
     class CustomDebugCog(*STANDARD_FEATURES):
         pass
 
-    async def setup(bot: commands.Bot):
-        await bot.add_cog(CustomDebugCog(bot=bot))
+    def setup(bot: commands.Bot):
+        bot.add_cog(CustomDebugCog(bot=bot))
 
 ``OPTIONAL_FEATURES``, by contrast, contains Features detected to be supported in this environment.
 The content of it may vary depending on what extras have been installed, or what platform jishaku is running on.
@@ -79,8 +79,8 @@ To use these features as well, simply add them to your cog:
     class CustomDebugCog(*OPTIONAL_FEATURES, *STANDARD_FEATURES):
         pass
 
-    async def setup(bot: commands.Bot):
-        await bot.add_cog(CustomDebugCog(bot=bot))
+    def setup(bot: commands.Bot):
+        bot.add_cog(CustomDebugCog(bot=bot))
 
 This will give you an almost identical cog to the standard Jishaku.
 
