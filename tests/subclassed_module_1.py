@@ -38,9 +38,9 @@ class Magnet1(ThirdPartyFeature, *jishaku.OPTIONAL_FEATURES, *jishaku.STANDARD_F
     """
 
 
-def setup(bot: commands.Bot):
+async def setup(bot: commands.Bot):
     """
     The setup function for the extended cog
     """
 
-    bot.add_cog(Magnet1(bot=bot))
+    await bot.add_cog(Magnet1(bot=bot))

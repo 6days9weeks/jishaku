@@ -47,9 +47,9 @@ class ManagementFeature(Feature):
 
         for extension in itertools.chain(*extensions):
             method, icon = (
-                (self.bot.reload_extension, "\N{CLOCKWISE RIGHTWARDS AND LEFTWARDS OPEN CIRCLE ARROWS}")
+                (await self.bot.reload_extension, "\N{CLOCKWISE RIGHTWARDS AND LEFTWARDS OPEN CIRCLE ARROWS}")
                 if extension in self.bot.extensions else
-                (self.bot.load_extension, "\N{INBOX TRAY}")
+                (await self.bot.load_extension, "\N{INBOX TRAY}")
             )
 
             try:
@@ -80,7 +80,7 @@ class ManagementFeature(Feature):
 
         for extension in itertools.chain(*extensions):
             try:
-                self.bot.unload_extension(extension)
+                await self.bot.unload_extension(extension)
             except Exception as exc:  # pylint: disable=broad-except
                 traceback_data = "".join(traceback.format_exception(type(exc), exc, exc.__traceback__, 1))
 

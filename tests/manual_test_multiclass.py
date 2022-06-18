@@ -37,7 +37,7 @@ async def async_entrypoint(token):
 
     for prefix, extension in LOADABLES:
         bot = commands.Bot(prefix)
-        bot.load_extension(extension)
+        await bot.load_extension(extension)
 
         bots.append(bot)
 
